@@ -1,4 +1,3 @@
-from datetime import timedelta
 from typing import Optional, cast
 from aiogram import types
 from app import services
@@ -18,10 +17,9 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 @with_session
 async def on_left_chat_member(message: types.ChatMemberUpdated, session:AsyncSession):
-    print(message.new_chat_member.status)
     if message.new_chat_member and message.new_chat_member.status in ["kicked"]:
         if message.new_chat_member.user.is_bot: 
-            return print('message.new_chat_member.user.is_bot: ', message.new_chat_member.user.is_bot)
+            return
         chat_id = message.chat.id
         chat_type = constants.ChatType(message.chat.type)
         chat_title = message.from_user.full_name if chat_type.is_private else message.chat.title
@@ -31,11 +29,8 @@ async def on_left_chat_member(message: types.ChatMemberUpdated, session:AsyncSes
         association = await services.get_association(session, left_user_id, chat_id)
         
         if association and association.ban_expires: 
-            print("association: ", association)
-            print("association.ban_expires: ", association.ban_expires)
             return
         if isinstance(message.new_chat_member, types.ChatMemberBanned): 
-            print('message.new_chat_member: ', (type(message.new_chat_member), message.new_chat_member))
             return
         
         await services.proccess_left_member(left_user_id, chat_id, session)
@@ -66,7 +61,9 @@ async def on_new_chat_member(message: types.ChatMemberUpdated, session:AsyncSess
             )
             await message.bot.send_message(
                 chat_id,
-                f"User {user.username} is banned and cannot join the chat.",
+                strings.USER_BANNED_MESSAGE.format(
+                    username=user.username
+                ),
             )
             return 
 

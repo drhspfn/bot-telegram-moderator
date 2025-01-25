@@ -226,6 +226,8 @@ MUTE_COMMAND_INVALID_FORMAT = """
 Приклад: <code>/mute 1h30m Спам</code>
 """
 
+USER_BANNED_MESSAGE = "Користувач {username} заблокований і не може приєднатися до чату."
+
 
 COMMAND_ARGS_INSUFFICIENT = """
 <b>❌ Недостатньо аргументів для виконання команди!</b>
