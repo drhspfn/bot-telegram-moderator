@@ -1,0 +1,7 @@
+.env
+*.pyc
+.venv
+*.session
+*.session-journal
+/logs
+bad_word_ai.py

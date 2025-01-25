@@ -1,0 +1,17 @@
+aiogram
+cryptography
+sqlalchemy
+asyncpg
+aiomysql
+alembic
+aiocache
+python-dotenv
+sqlalchemy_utils
+sqlalchemy-stubs
+types-SQLAlchemy
+telethon
+pydantic
+
+
+gensim
+numpy
